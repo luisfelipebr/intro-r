@@ -1,0 +1,433 @@
+---
+title: "Introdução ao R em 1 hora"
+format: html
+toc: true
+toc-location: body
+toc-title: "Sumário"
+---
+
+# Conceitos fundamentais
+
+## Tipos básicos de dados
+
+A representação de dados no computador pode ser feita usando alguns tipos básicos de dados e existe um conjunto de métodos diferentes aplicáveis a cada um deles. Operações matemáticas - como soma, multiplicação e média - são aplicáveis somente em dados numéricos, enquanto a concatenação de texto, por exemplo, é aplicável somente em dados textuais. O resultado de uma operação lógica é um dado do tipo booleano (VERDADEIRO/FALSO).
+
+Os 3 tipos básicos que vamos usar ao longo desse roteiro são:
+
+**Numérico:**
+
+```{r}
+class(33)
+```
+
+**Textual (ou caractere):**
+
+```{r}
+class("Exemplo de texto")
+```
+
+**Booleano (ou lógico):**
+
+```{r}
+class(TRUE) # OU FALSE
+```
+
+Outros tipos básicas de dados são:
+
+* integer
+* double
+* factor
+
+Na sequência, vamos ver o que são *Objetos* e *Funções*. Resumidamente, **objetos** são nomes dados a alguma coisa (uma tabela, por exemplo), enquanto **funções** são nomes dados a métodos (soma, média etc.).
+
+## Objetos
+
+Um objeto é um nome dado a alguma coisa (um valor ou uma tabela, por exemplo). Ele é representado por uma palavra sem aspas ou parênteses. 
+
+Usamos o operador  ` <- ` ou o operador ` = ` para atribuir alguma coisa a um nome.
+
+Alguns tipos de objetos muito comuns no R são:
+
+**Valores:** definidos usando classes básicas de dados. Podemos aplicar operações matemáticas básicas (`+`, `-`, `*`, `/`) em valores numéricos, como nos exemplos a seguir.
+
+```{r}
+numero1 <- 1
+numero2 <- 2
+
+numero1 + numero2
+```
+
+```{r}
+abacaxi <- 5
+uva <- 10
+
+abacaxi + uva
+```
+
+**Vetor:** é um conjunto de valores da mesma classe. Vetores possuem somente uma dimensão. Usamos a função `c()` para definir vetores quando necessário.
+
+```{r}
+exemplo_de_vetor <- c(4, 4, 6, 6)
+exemplo_de_vetor
+```
+
+Podemos aplicar operações matemáticas prontas (funções) em um vetor para obter novos  valores. No exemplo a seguir, usamos a função `mean()` para obter a média do `exemplo_de_vetor`.
+
+```{r}
+mean(exemplo_de_vetor)
+```
+
+**Matriz:** matrizes são conjuntos bidimensionais de valores da mesma classe. Não vamos usar matrizes nesse roteiro.
+
+```{r}
+random_matrix <- matrix(runif(9), nrow = 3)
+random_matrix
+```
+
+**Tabela de dados (data.frame):** Chegamos no tipo mais comum de objeto usado na análise de dados! O *data.frame* é um conjunto bidimensional de dados parecido com uma tabela do excel, mas seguindo uma regra importante: todos os valores de uma coluna possuem a mesma classe de dados! Ou seja, cada coluna é um vetor diferente. Portanto, usamos as linhas para registrar "observações" e as colunas para registrar "variáveis".
+
+```{r}
+nome <- c("Ana", "Beatriz", "Carlos")
+altura <- c(1.55, 1.75, 1.77)
+peso <- c(70, 65, 70)
+pratica_esportes <- c(TRUE, TRUE, FALSE)
+
+estudantes <- data.frame(nome, altura, peso, pratica_esportes)
+estudantes
+```
+
+Agora que temos um conjunto de dados, podemos responder algumas perguntas, usando o `$` para acessar as variáveis:
+
+Qual a altura média dos estudantes?
+
+```{r}
+mean(estudantes$altura)
+```
+
+E qual o IMC de cada estudante?
+
+```{r}
+estudantes$IMC <- (estudantes$peso)/(estudantes$altura*estudantes$altura)
+
+estudantes
+```
+
+## Funções
+
+Uma função é um nome que guarda um conjunto de métodos (ou um roteiro de análise de dados). Ela é representada por uma palavra seguida por parenteses. 
+
+Já usamos várias funções nesse roteiro, como, por exemplo, a função `mean()`, usada para calcular a média de um vetor de valores numéricos. 
+
+Nesse roteiro, não vamos criar nenhuma função nova. Vamos usar apenas funções prontas, que outras pessoas criaram.
+
+Exemplos de funções:
+
+**getwd()** retorna o diretório de trabalho atual, onde os dados serão exportados, e não demanda nenhum parâmetro.
+
+```{r}
+getwd()
+```
+
+**names(x)** demanda um parâmetro `x` - geralmente um `data.frame` - e retorna um vetor com os nomes das variáveis.
+
+```{r}
+names(estudantes)
+```
+
+Como descobrir como cada função funciona e quais são os parâmetros exigidos? Buscando na internet, na documentação oficial dos *pacotes* ou no RStudio, usando um ponto de interrogação antes da função sem os parênteses, seguindo a *sintaxe* do exemplo:
+
+```{r}
+?names
+```
+
+# Usando o pacote `tidyverse` para analisar os dados da Pesquisa NUI
+
+Nessa seção, vamos aprender as principais funções para manipulação de dados tabulares e aplicá-las em um exemplo prático. Nosso objetivo é responder a pergunta:
+
+* Qual município polo da [Pesquisa NUI](https://pnui.ipea.gov.br/) possui a maior proporção de domicílios ocupados em favelas?
+
+O que torna o R um excelente ambiente para análise de dados são os pacotes - conjuntos de métodos publicados por outras pessoas que podemos usar nos nossos dados.
+
+Um pacote em especial mudou o paradigma da análise de dados em R ao definir "como fazer" ciência de dados e padronizar os métodos, o `tidyverse`.
+
+[![Figura 1 - Fluxo de análise de dados com o *tidyverse*. Fonte: Livro Ciência de Dados em R](https://livro.curso-r.com/assets/img/pacotes/ciclo-ciencia-de-dados-pacotes.png)](https://livro.curso-r.com/4-2-tidyverse.html)
+
+Para instalar o tidyverse, vamos usar o código a seguir. Só é necessário instalar o pacote uma vez em cada computador.
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+Toda vez que abrimos o R, precisamos também abrir a biblioteca para usar suas funções padronizadas, usando o código:
+
+```{r}
+library(tidyverse)
+```
+
+## Operador *pipe*: `%>%` ou `|>`
+
+Uma das principais contribuições do `tidyverse`é o *pipe*. Esse operador permite criar um roteiro legível de análise de dados e será usado a partir de agora.
+
+Receita de bolo sem o *pipe*:
+
+```{r}
+#| eval: false 
+bolo <- esfriar(assar(bater(ingredientes, tempo = 3), tempo = 20))
+```
+
+Receita de bolo com o *pipe*:
+
+```{r}
+#| eval: false 
+bolo <- ingredientes %>%
+  bater(tempo = 3) %>%
+  assar(tempo = 20) %>%
+  esfriar()
+```
+
+## Importar os dados
+
+Podemos baixar os dados direto da internet com a função `read.csv2`. Essa mesma função pode ser usada para importar dados em um diretório local, substituindo o endereço que está dentro da função.
+
+```{r}
+nuis <- read.csv2("https://raw.githubusercontent.com/luisfelipebr/intro-r/main/dados/POLOS_NUIS.csv")
+
+str(nuis)
+```
+
+Mas existe algo estranho nos dados: não sabemos o significado das variáveis, que estão codificadas (V1, V2...). Por isso vamos acessar o [dicionário de dados](https://github.com/luisfelipebr/intro-r/blob/main/dados/Leia-me.pdf) para consultar os nomes das variáveis e renomear as colunas com a função `names() <-`.
+
+```{r}
+names(nuis) <- c(
+  "id",
+  "polo",
+  "municipio",
+  "agrupamento_de_municipios",
+  "nome",
+  "nome_fonte",
+  "numero_domicilios",
+  "numero_fonte",
+  "numero_data",
+  "tipo",
+  "tipo_especificacao",
+  "tipo_proporcao",
+  "tempo_estabelecimento",
+  "dinamica_imobiliaria",
+  "contiguidade_urbana",
+  "zeis",
+  "areas_protegidas",
+  "areas_protegidas_tipo",
+  "app",
+  "app_tipo",
+  "app_fonte",
+  "situacao_risco",
+  "situacao_risco_especificacao",
+  "suscetibilidade_risco",
+  "suscetibilidade_risco_grau",
+  "tracado",
+  "tracao_especificacao",
+  "ocupacao_lotes",
+  "ocupacao_lotes_especificacao",
+  "condicao_construcoes",
+  "condicao_construcoes_especificacao",
+  "urbanizacao_infraestrutura",
+  "obs",
+  "estimativa_domicilios"
+)
+
+str(nuis)
+```
+
+## Selecionar as variáveis - `select()`
+
+Para responder nossa pergunta - qual *município* *polo* possui a maior proporção de *domicílios* ocupados em *favelas*? - não precisamos de todas as variáveis na tabela de dados. Por isso, vamos selecionar só aquelas que serão usadas.
+
+```{r}
+nuis2 <- nuis %>%
+  select(polo, municipio, tipo, numero_domicilios)
+
+str(nuis2)
+```
+
+## Filtrar as observações - `filter()`
+
+Para obter apenas os NUI do tipo favela, vamos aplicar um filtro nos dados.
+
+Operações de filtro geralmente demandam um operador lógico - fazemos um teste e obtemos apenas as observações que cumprem o teste lógico (ou seja, o resultado é VERDADEIRO).
+
+[![Figura 2 - Principais operadores lógicos no R. Fonte: Website Análise Macro](https://analisemacro.com.br/wp-content/uploads/2022/03/lgl_r.png)](https://analisemacro.com.br/data-science/controles-de-fluxo-if-else-for-e-while-no-r/)
+
+Após consultar o dicionário de dados, verificamos que foi atribuído o valor 1 aos NUI do tipo favela. Portanto, nossa operação lógica é `tipo == 1`, como mostra o exemplo abaixo.
+
+```{r}
+nuis3 <- nuis2 %>%
+  filter(tipo == 1)
+
+str(nuis3)
+```
+
+## Agrupar e resumir - `group_by()` e `summarize()`
+
+Partindo do objeto obtido na operação anterior, vamos aplicar uma etapa muito importante do nosso roteiro de análise de dados, o agrupamento e sumarização dos dados. Isso será feito usando duas funções geralmente aplicadas em conjunto, na sequência apresentada: o `group_by()` e o `summarize()`. Neste caso, estamos agrupando os dados pelos municípios, que passarão a ser nossa unidade básica de análise, e obtendo a soma de domicílios em favelas.
+
+```{r}
+nuis4 <- nuis3 %>%
+  group_by(municipio) %>%
+  summarize(soma_domicilios = sum(numero_domicilios))
+
+str(nuis4)
+```
+
+Estamos quase chegando no resultado esperado, mas ainda faltam duas etapas importantes: primeiro, adicionar uma nova variável com a quantidade de domicílios ocupados em 2022, de acordo com o Censo Demográfico; e na sequência, filtrar apenas os 6 municípios polo da Pesquisa NUI.
+
+## União - `left_join()`, `right_join()`, `full_join()`, `inner_join()`
+
+Para adicionar uma coluna com a quantidade de domicílios ocupados, precisamos buscar esses dados em outra tabela. Após consultar esses dados no (Sidra IBGE)[], vamos definir uma nova tabela do tipo `data.frame` com esses dados, usando o código a seguir.
+
+```{r}
+nome_municipio <- c("Aracaju", "Belo Horizonte", "Brasília", "Goiânia", "Juazeiro do Norte", "Marabá", "Porto Alegre", "Recife")
+domicilios_ocupados <- c(218513, 889584, 988191, 549071, 97385, 86027, 558252, 547461)
+
+domicilios_2022 <- data.frame(nome_municipio, domicilios_ocupados)
+
+domicilios_2022
+```
+
+Para fazer a união entre 2 tabelas, geralmente usamos uma operação de `join()`. Existem quatro tipos, exemplificados na tabela abaixo, e precisamos indicar qual tipo de *join* vamos usar. No nosso caso, o `inner_join()`, que retorna apenas as observações em que houver correspondência entre as duas tabelas, vai resolver as duas etapas especificadas acima.
+
+![Figura 3 - Tipos de união](https://mikoontz.github.io/data-carpentry-week/img/dplyr-joins.png)
+
+```{r}
+nuis5 <- nuis4 %>%
+  inner_join(domicilios_2022, 
+             by = c("municipio" = "nome_municipio"))
+
+head(nuis5)
+```
+
+Com a tabela resultante do código acima, já temos todos os dados necessários para calcular a proporção de domicílios do tipo favela em cada município polo da Pesquisa NUI.
+
+## Criar novas variáveis - `mutate()`
+
+Já vimos como criar novas variáveis nesse roteiro, quando apresentamos os objetos e funções. Mas agora, vamos aprender uma nova forma de criar variáveis, um método padronizado conforme as sugestões do `tidyverse`, usando a função `mutate()`.
+
+```{r}
+nuis6 <- nuis5 %>%
+  mutate(proporcao = soma_domicilios/domicilios_ocupados,
+         porcentagem = round(proporcao, 3)*100)
+
+head(nuis6)
+```
+
+Como podemos ver na tabela, Recife é o município com a maior proporção de domicílios do tipo favela (sobre o total de domicílios ocupados), que é de 41,3%.
+
+## Exportar os dados
+
+Agora que chegamos no resultado final desejado, podemos exportar essa tabela no formato csv para anexá-la em nossa pesquisa. Isso será feito usando a função `write_csv2()`.
+
+```{r}
+#| eval: false
+write_csv2(nuis6, "tabela_final.csv")
+```
+
+# Roteiro final
+
+Após construir o roteiro de análise de dados, podemos consolidar o conhecimento em um roteiro final único, seguindo a estrutura proposta pelo pacote `tidyverse`:
+
+1. Abrir as biblioteca
+2. Importar os dados
+3. Limpar os dados
+4. Transformação/visualização/modelagem
+5. Exportar os dados
+
+```{r}
+#| eval: false
+
+# ABRIR AS BIBLIOTECAS
+library(tidyverse)
+
+# IMPORTAR OS DADOS
+nuis <- read.csv2("https://raw.githubusercontent.com/luisfelipebr/intro-r/main/dados/POLOS_NUIS.csv")
+
+nome_municipio <- c("Aracaju", "Belo Horizonte", "Brasília", "Goiânia", "Juazeiro do Norte", "Marabá", "Porto Alegre", "Recife")
+domicilios_ocupados <- c(218513, 889584, 988191, 549071, 97385, 86027, 558252, 547461)
+domicilios_2022 <- data.frame(nome_municipio, domicilios_ocupados)
+
+nomes_dos_nuis <- c(
+  "id",
+  "polo",
+  "municipio",
+  "agrupamento_de_municipios",
+  "nome",
+  "nome_fonte",
+  "numero_domicilios",
+  "numero_fonte",
+  "numero_data",
+  "tipo",
+  "tipo_especificacao",
+  "tipo_proporcao",
+  "tempo_estabelecimento",
+  "dinamica_imobiliaria",
+  "contiguidade_urbana",
+  "zeis",
+  "areas_protegidas",
+  "areas_protegidas_tipo",
+  "app",
+  "app_tipo",
+  "app_fonte",
+  "situacao_risco",
+  "situacao_risco_especificacao",
+  "suscetibilidade_risco",
+  "suscetibilidade_risco_grau",
+  "tracado",
+  "tracao_especificacao",
+  "ocupacao_lotes",
+  "ocupacao_lotes_especificacao",
+  "condicao_construcoes",
+  "condicao_construcoes_especificacao",
+  "urbanizacao_infraestrutura",
+  "obs",
+  "estimativa_domicilios"
+)
+
+# LIMPEZA DOS DADOS
+names(nuis) <- nomes_dos_nuis #troquei o nome das variaveis
+
+# ANALISE DE DADOS
+# qual município polo possui a maior proporção 
+# de domicílios ocupados em favelas?
+tabela_final <- nuis %>%
+  select(polo, municipio, tipo, numero_domicilios) %>% # selecionar as variaveis relevantes
+  filter(tipo == 1) %>% # Filtrar apenas os NUIs do tipo favela
+  group_by(municipio) %>% # Agrupando por municipios
+  summarize(soma_domicilios = sum(numero_domicilios)) %>% # Resumindo a soma de domicilios em favelas
+  inner_join(domicilios_2022, by = c("municipio" = "nome_municipio")) %>% #Join com a quantidade de domicilios ocupados
+  mutate(proporcao = soma_domicilios/domicilios_ocupados, # criando nova variavel com a proporcao
+         porcentagem = round(proporcao, 3)*100) # arredondando a proporcao e multiplicando por 100
+
+# EXPORTANDO OS DADOS
+write.csv2(tabela_final, "tabela_final.csv")
+```
+
+# Próximos passos
+
+Sugestões de livros para aprender análise de dados com R em mais de 1 hora:
+
+* [R for Data Science](https://r4ds.hadley.nz/)
+
+* [Ciência de dados em R](https://livro.curso-r.com/index.html)
+
+Você também você pode explorar a documentação de outras bibliotecas:
+
+`library(readxl)` para abrir dados excel (.xls, .xlsx).
+
+`library(arrow)` para abrir dados do tipo parquet (.parquet).
+
+`library(ggplot2)` para produzir visualizações de dados (gráficos).
+
+`library(survey)` para analisar pesquisas amostrais, como o Censo Demográfico (microdados da amostra) e a PNAD contínua.
+
+`library(sf)`, se deseja abrir e processar dados geoespaciais.
+
+`library(geobr)` para fazer o download de bases de dados geoespaciais oficiais do Brasil.

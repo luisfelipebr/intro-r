@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.221">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introdução ao R em 1 hora</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="intro-r_files/libs/clipboard/clipboard.min.js"></script>
+<script src="intro-r_files/libs/quarto-html/quarto.js"></script>
+<script src="intro-r_files/libs/quarto-html/popper.min.js"></script>
+<script src="intro-r_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="intro-r_files/libs/quarto-html/anchor.min.js"></script>
+<link href="intro-r_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="intro-r_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="intro-r_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="intro-r_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="intro-r_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introdução ao R em 1 hora</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Sumário</h2>
+   
+  <ul>
+  <li><a href="#conceitos-fundamentais" id="toc-conceitos-fundamentais">Conceitos fundamentais</a>
+  <ul>
+  <li><a href="#tipos-básicos-de-dados" id="toc-tipos-básicos-de-dados">Tipos básicos de dados</a></li>
+  <li><a href="#objetos" id="toc-objetos">Objetos</a></li>
+  <li><a href="#funções" id="toc-funções">Funções</a></li>
+  </ul></li>
+  <li><a href="#usando-o-pacote-tidyverse-para-analisar-os-dados-da-pesquisa-nui" id="toc-usando-o-pacote-tidyverse-para-analisar-os-dados-da-pesquisa-nui">Usando o pacote <code>tidyverse</code> para analisar os dados da Pesquisa NUI</a>
+  <ul>
+  <li><a href="#operador-pipe-ou" id="toc-operador-pipe-ou">Operador <em>pipe</em>: <code>%&gt;%</code> ou <code>|&gt;</code></a></li>
+  <li><a href="#importar-os-dados" id="toc-importar-os-dados">Importar os dados</a></li>
+  <li><a href="#selecionar-as-variáveis---select" id="toc-selecionar-as-variáveis---select">Selecionar as variáveis - <code>select()</code></a></li>
+  <li><a href="#filtrar-as-observações---filter" id="toc-filtrar-as-observações---filter">Filtrar as observações - <code>filter()</code></a></li>
+  <li><a href="#agrupar-e-resumir---group_by-e-summarize" id="toc-agrupar-e-resumir---group_by-e-summarize">Agrupar e resumir - <code>group_by()</code> e <code>summarize()</code></a></li>
+  <li><a href="#união---left_join-right_join-full_join-inner_join" id="toc-união---left_join-right_join-full_join-inner_join">União - <code>left_join()</code>, <code>right_join()</code>, <code>full_join()</code>, <code>inner_join()</code></a></li>
+  <li><a href="#criar-novas-variáveis---mutate" id="toc-criar-novas-variáveis---mutate">Criar novas variáveis - <code>mutate()</code></a></li>
+  <li><a href="#exportar-os-dados" id="toc-exportar-os-dados">Exportar os dados</a></li>
+  </ul></li>
+  <li><a href="#roteiro-final" id="toc-roteiro-final">Roteiro final</a></li>
+  <li><a href="#próximos-passos" id="toc-próximos-passos">Próximos passos</a></li>
+  </ul>
+</nav>
+<section id="conceitos-fundamentais" class="level1">
+<h1>Conceitos fundamentais</h1>
+<section id="tipos-básicos-de-dados" class="level2">
+<h2 class="anchored" data-anchor-id="tipos-básicos-de-dados">Tipos básicos de dados</h2>
+<p>A representação de dados no computador pode ser feita usando alguns tipos básicos de dados e existe um conjunto de métodos diferentes aplicáveis a cada um deles. Operações matemáticas - como soma, multiplicação e média - são aplicáveis somente em dados numéricos, enquanto a concatenação de texto, por exemplo, é aplicável somente em dados textuais. O resultado de uma operação lógica é um dado do tipo booleano (VERDADEIRO/FALSO).</p>
+<p>Os 3 tipos básicos que vamos usar ao longo desse roteiro são:</p>
+<p><strong>Numérico:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">33</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p><strong>Textual (ou caractere):</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"Exemplo de texto"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p><strong>Booleano (ou lógico):</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">TRUE</span>) <span class="co"># OU FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<p>Outros tipos básicas de dados são:</p>
+<ul>
+<li>integer</li>
+<li>double</li>
+<li>factor</li>
+</ul>
+<p>Na sequência, vamos ver o que são <em>Objetos</em> e <em>Funções</em>. Resumidamente, <strong>objetos</strong> são nomes dados a alguma coisa (uma tabela, por exemplo), enquanto <strong>funções</strong> são nomes dados a métodos (soma, média etc.).</p>
+</section>
+<section id="objetos" class="level2">
+<h2 class="anchored" data-anchor-id="objetos">Objetos</h2>
+<p>Um objeto é um nome dado a alguma coisa (um valor ou uma tabela, por exemplo). Ele é representado por uma palavra sem aspas ou parênteses.</p>
+<p>Usamos o operador <code>&lt;-</code> ou o operador <code>=</code> para atribuir alguma coisa a um nome.</p>
+<p>Alguns tipos de objetos muito comuns no R são:</p>
+<p><strong>Valores:</strong> definidos usando classes básicas de dados. Podemos aplicar operações matemáticas básicas (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>) em valores numéricos, como nos exemplos a seguir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>numero1 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>numero2 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>numero1 <span class="sc">+</span> numero2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>abacaxi <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>uva <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>abacaxi <span class="sc">+</span> uva</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+</div>
+<p><strong>Vetor:</strong> é um conjunto de valores da mesma classe. Vetores possuem somente uma dimensão. Usamos a função <code>c()</code> para definir vetores quando necessário.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>exemplo_de_vetor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">6</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>exemplo_de_vetor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 4 6 6</code></pre>
+</div>
+</div>
+<p>Podemos aplicar operações matemáticas prontas (funções) em um vetor para obter novos valores. No exemplo a seguir, usamos a função <code>mean()</code> para obter a média do <code>exemplo_de_vetor</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(exemplo_de_vetor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p><strong>Matriz:</strong> matrizes são conjuntos bidimensionais de valores da mesma classe. Não vamos usar matrizes nesse roteiro.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>random_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">9</span>), <span class="at">nrow =</span> <span class="dv">3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>random_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]      [,2]       [,3]
+[1,] 0.3105729 0.6714712 0.98680714
+[2,] 0.9315639 0.7436316 0.46710442
+[3,] 0.4393926 0.2587590 0.08217831</code></pre>
+</div>
+</div>
+<p><strong>Tabela de dados (data.frame):</strong> Chegamos no tipo mais comum de objeto usado na análise de dados! O <em>data.frame</em> é um conjunto bidimensional de dados parecido com uma tabela do excel, mas seguindo uma regra importante: todos os valores de uma coluna possuem a mesma classe de dados! Ou seja, cada coluna é um vetor diferente. Portanto, usamos as linhas para registrar “observações” e as colunas para registrar “variáveis”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ana"</span>, <span class="st">"Beatriz"</span>, <span class="st">"Carlos"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.55</span>, <span class="fl">1.75</span>, <span class="fl">1.77</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>peso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">65</span>, <span class="dv">70</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>pratica_esportes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>estudantes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(nome, altura, peso, pratica_esportes)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>estudantes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     nome altura peso pratica_esportes
+1     Ana   1.55   70             TRUE
+2 Beatriz   1.75   65             TRUE
+3  Carlos   1.77   70            FALSE</code></pre>
+</div>
+</div>
+<p>Agora que temos um conjunto de dados, podemos responder algumas perguntas, usando o <code>$</code> para acessar as variáveis:</p>
+<p>Qual a altura média dos estudantes?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(estudantes<span class="sc">$</span>altura)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.69</code></pre>
+</div>
+</div>
+<p>E qual o IMC de cada estudante?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>estudantes<span class="sc">$</span>IMC <span class="ot">&lt;-</span> (estudantes<span class="sc">$</span>peso)<span class="sc">/</span>(estudantes<span class="sc">$</span>altura<span class="sc">*</span>estudantes<span class="sc">$</span>altura)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>estudantes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     nome altura peso pratica_esportes      IMC
+1     Ana   1.55   70             TRUE 29.13632
+2 Beatriz   1.75   65             TRUE 21.22449
+3  Carlos   1.77   70            FALSE 22.34352</code></pre>
+</div>
+</div>
+</section>
+<section id="funções" class="level2">
+<h2 class="anchored" data-anchor-id="funções">Funções</h2>
+<p>Uma função é um nome que guarda um conjunto de métodos (ou um roteiro de análise de dados). Ela é representada por uma palavra seguida por parenteses.</p>
+<p>Já usamos várias funções nesse roteiro, como, por exemplo, a função <code>mean()</code>, usada para calcular a média de um vetor de valores numéricos.</p>
+<p>Nesse roteiro, não vamos criar nenhuma função nova. Vamos usar apenas funções prontas, que outras pessoas criaram.</p>
+<p>Exemplos de funções:</p>
+<p><strong>getwd()</strong> retorna o diretório de trabalho atual, onde os dados serão exportados, e não demanda nenhum parâmetro.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/Users/luisf/Library/CloudStorage/OneDrive-Personal/@/intro-r"</code></pre>
+</div>
+</div>
+<p><strong>names(x)</strong> demanda um parâmetro <code>x</code> - geralmente um <code>data.frame</code> - e retorna um vetor com os nomes das variáveis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(estudantes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "nome"             "altura"           "peso"             "pratica_esportes"
+[5] "IMC"             </code></pre>
+</div>
+</div>
+<p>Como descobrir como cada função funciona e quais são os parâmetros exigidos? Buscando na internet, na documentação oficial dos <em>pacotes</em> ou no RStudio, usando um ponto de interrogação antes da função sem os parênteses, seguindo a <em>sintaxe</em> do exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>?names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="usando-o-pacote-tidyverse-para-analisar-os-dados-da-pesquisa-nui" class="level1">
+<h1>Usando o pacote <code>tidyverse</code> para analisar os dados da Pesquisa NUI</h1>
+<p>Nessa seção, vamos aprender as principais funções para manipulação de dados tabulares e aplicá-las em um exemplo prático. Nosso objetivo é responder a pergunta:</p>
+<ul>
+<li>Qual município polo da <a href="https://pnui.ipea.gov.br/">Pesquisa NUI</a> possui a maior proporção de domicílios ocupados em favelas?</li>
+</ul>
+<p>O que torna o R um excelente ambiente para análise de dados são os pacotes - conjuntos de métodos publicados por outras pessoas que podemos usar nos nossos dados.</p>
+<p>Um pacote em especial mudou o paradigma da análise de dados em R ao definir “como fazer” ciência de dados e padronizar os métodos, o <code>tidyverse</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://livro.curso-r.com/4-2-tidyverse.html"><img src="https://livro.curso-r.com/assets/img/pacotes/ciclo-ciencia-de-dados-pacotes.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Figura 1 - Fluxo de análise de dados com o <em>tidyverse</em>. Fonte: Livro Ciência de Dados em R</figcaption><p></p>
+</figure>
+</div>
+<p>Para instalar o tidyverse, vamos usar o código a seguir. Só é necessário instalar o pacote uma vez em cada computador.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Toda vez que abrimos o R, precisamos também abrir a biblioteca para usar suas funções padronizadas, usando o código:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<section id="operador-pipe-ou" class="level2">
+<h2 class="anchored" data-anchor-id="operador-pipe-ou">Operador <em>pipe</em>: <code>%&gt;%</code> ou <code>|&gt;</code></h2>
+<p>Uma das principais contribuições do <code>tidyverse</code>é o <em>pipe</em>. Esse operador permite criar um roteiro legível de análise de dados e será usado a partir de agora.</p>
+<p>Receita de bolo sem o <em>pipe</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bolo <span class="ot">&lt;-</span> <span class="fu">esfriar</span>(<span class="fu">assar</span>(<span class="fu">bater</span>(ingredientes, <span class="at">tempo =</span> <span class="dv">3</span>), <span class="at">tempo =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Receita de bolo com o <em>pipe</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bolo <span class="ot">&lt;-</span> ingredientes <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bater</span>(<span class="at">tempo =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assar</span>(<span class="at">tempo =</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">esfriar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importar-os-dados" class="level2">
+<h2 class="anchored" data-anchor-id="importar-os-dados">Importar os dados</h2>
+<p>Podemos baixar os dados direto da internet com a função <code>read.csv2</code>. Essa mesma função pode ser usada para importar dados em um diretório local, substituindo o endereço que está dentro da função.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>nuis <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"https://raw.githubusercontent.com/luisfelipebr/intro-r/main/dados/POLOS_NUIS.csv"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nuis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   4968 obs. of  34 variables:
+ $ V0  : chr  "NUI2507" "NUI2508" "NUI2509" "NUI2510" ...
+ $ V1  : chr  "Porto Alegre" "Porto Alegre" "Porto Alegre" "Porto Alegre" ...
+ $ V2a : chr  "Gravataí" "Gravataí" "Gravataí" "Gravataí" ...
+ $ V2b : chr  "Grupo 2" "Grupo 2" "Grupo 2" "Grupo 2" ...
+ $ V3a : chr  "Parque Do Sol" "Miraflores" "Cruzeiro Ii_Rua Zaire" "Cruzeiro Ii_Rua Venezuela" ...
+ $ V3b : chr  "1" "1" "1" "1" ...
+ $ V4a : int  40 504 130 16 117 60 25 28 8 13 ...
+ $ V4b : chr  "Prefeitura" "Prefeitura" "Prefeitura" "Prefeitura" ...
+ $ V4c : chr  "2017" "2017" "2017" "2017" ...
+ $ V5a : int  1 2 1 1 1 1 1 1 1 1 ...
+ $ V5b : chr  NA NA NA NA ...
+ $ V5c : chr  NA NA NA NA ...
+ $ V6  : int  4 4 4 4 4 4 4 4 4 4 ...
+ $ V7  : int  3 1 3 2 3 3 3 3 3 2 ...
+ $ V8  : int  2 1 3 3 3 2 3 3 3 3 ...
+ $ V9  : int  4 4 4 4 4 4 4 4 4 4 ...
+ $ V10a: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ V10b: chr  NA NA NA NA ...
+ $ V11a: int  0 1 0 0 1 1 0 0 0 1 ...
+ $ V11b: chr  NA "FBDS" NA NA ...
+ $ V11c: chr  NA NA NA NA ...
+ $ V12a: int  1 1 1 1 3 1 1 1 2 3 ...
+ $ V12b: chr  NA NA NA NA ...
+ $ V13a: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ V13b: chr  "-" "-" "-" "-" ...
+ $ V14a: int  1 1 2 2 3 2 1 4 4 4 ...
+ $ V14b: chr  NA NA NA NA ...
+ $ V15a: int  1 1 2 4 4 4 1 4 4 4 ...
+ $ V15b: chr  NA NA NA NA ...
+ $ V16a: int  1 1 2 2 2 2 1 1 1 1 ...
+ $ V16b: chr  NA NA NA NA ...
+ $ V17 : int  1 2 2 2 2 2 1 1 1 1 ...
+ $ V18 : chr  NA NA NA NA ...
+ $ V19 : chr  "até 50" "de 100 a 700" "de 100 a 700" "até 50" ...</code></pre>
+</div>
+</div>
+<p>Mas existe algo estranho nos dados: não sabemos o significado das variáveis, que estão codificadas (V1, V2…). Por isso vamos acessar o <a href="https://github.com/luisfelipebr/intro-r/blob/main/dados/Leia-me.pdf">dicionário de dados</a> para consultar os nomes das variáveis e renomear as colunas com a função <code>names() &lt;-</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nuis) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"id"</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polo"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"municipio"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"agrupamento_de_municipios"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nome"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nome_fonte"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"numero_domicilios"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"numero_fonte"</span>,</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"numero_data"</span>,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tipo"</span>,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tipo_especificacao"</span>,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tipo_proporcao"</span>,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tempo_estabelecimento"</span>,</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dinamica_imobiliaria"</span>,</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"contiguidade_urbana"</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"zeis"</span>,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"areas_protegidas"</span>,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"areas_protegidas_tipo"</span>,</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"app"</span>,</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"app_tipo"</span>,</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"app_fonte"</span>,</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"situacao_risco"</span>,</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"situacao_risco_especificacao"</span>,</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"suscetibilidade_risco"</span>,</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"suscetibilidade_risco_grau"</span>,</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tracado"</span>,</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tracao_especificacao"</span>,</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ocupacao_lotes"</span>,</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ocupacao_lotes_especificacao"</span>,</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">"condicao_construcoes"</span>,</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">"condicao_construcoes_especificacao"</span>,</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"urbanizacao_infraestrutura"</span>,</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"obs"</span>,</span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"estimativa_domicilios"</span></span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nuis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   4968 obs. of  34 variables:
+ $ id                                : chr  "NUI2507" "NUI2508" "NUI2509" "NUI2510" ...
+ $ polo                              : chr  "Porto Alegre" "Porto Alegre" "Porto Alegre" "Porto Alegre" ...
+ $ municipio                         : chr  "Gravataí" "Gravataí" "Gravataí" "Gravataí" ...
+ $ agrupamento_de_municipios         : chr  "Grupo 2" "Grupo 2" "Grupo 2" "Grupo 2" ...
+ $ nome                              : chr  "Parque Do Sol" "Miraflores" "Cruzeiro Ii_Rua Zaire" "Cruzeiro Ii_Rua Venezuela" ...
+ $ nome_fonte                        : chr  "1" "1" "1" "1" ...
+ $ numero_domicilios                 : int  40 504 130 16 117 60 25 28 8 13 ...
+ $ numero_fonte                      : chr  "Prefeitura" "Prefeitura" "Prefeitura" "Prefeitura" ...
+ $ numero_data                       : chr  "2017" "2017" "2017" "2017" ...
+ $ tipo                              : int  1 2 1 1 1 1 1 1 1 1 ...
+ $ tipo_especificacao                : chr  NA NA NA NA ...
+ $ tipo_proporcao                    : chr  NA NA NA NA ...
+ $ tempo_estabelecimento             : int  4 4 4 4 4 4 4 4 4 4 ...
+ $ dinamica_imobiliaria              : int  3 1 3 2 3 3 3 3 3 2 ...
+ $ contiguidade_urbana               : int  2 1 3 3 3 2 3 3 3 3 ...
+ $ zeis                              : int  4 4 4 4 4 4 4 4 4 4 ...
+ $ areas_protegidas                  : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ areas_protegidas_tipo             : chr  NA NA NA NA ...
+ $ app                               : int  0 1 0 0 1 1 0 0 0 1 ...
+ $ app_tipo                          : chr  NA "FBDS" NA NA ...
+ $ app_fonte                         : chr  NA NA NA NA ...
+ $ situacao_risco                    : int  1 1 1 1 3 1 1 1 2 3 ...
+ $ situacao_risco_especificacao      : chr  NA NA NA NA ...
+ $ suscetibilidade_risco             : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ suscetibilidade_risco_grau        : chr  "-" "-" "-" "-" ...
+ $ tracado                           : int  1 1 2 2 3 2 1 4 4 4 ...
+ $ tracao_especificacao              : chr  NA NA NA NA ...
+ $ ocupacao_lotes                    : int  1 1 2 4 4 4 1 4 4 4 ...
+ $ ocupacao_lotes_especificacao      : chr  NA NA NA NA ...
+ $ condicao_construcoes              : int  1 1 2 2 2 2 1 1 1 1 ...
+ $ condicao_construcoes_especificacao: chr  NA NA NA NA ...
+ $ urbanizacao_infraestrutura        : int  1 2 2 2 2 2 1 1 1 1 ...
+ $ obs                               : chr  NA NA NA NA ...
+ $ estimativa_domicilios             : chr  "até 50" "de 100 a 700" "de 100 a 700" "até 50" ...</code></pre>
+</div>
+</div>
+</section>
+<section id="selecionar-as-variáveis---select" class="level2">
+<h2 class="anchored" data-anchor-id="selecionar-as-variáveis---select">Selecionar as variáveis - <code>select()</code></h2>
+<p>Para responder nossa pergunta - qual <em>município</em> <em>polo</em> possui a maior proporção de <em>domicílios</em> ocupados em <em>favelas</em>? - não precisamos de todas as variáveis na tabela de dados. Por isso, vamos selecionar só aquelas que serão usadas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>nuis2 <span class="ot">&lt;-</span> nuis <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(polo, municipio, tipo, numero_domicilios)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nuis2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   4968 obs. of  4 variables:
+ $ polo             : chr  "Porto Alegre" "Porto Alegre" "Porto Alegre" "Porto Alegre" ...
+ $ municipio        : chr  "Gravataí" "Gravataí" "Gravataí" "Gravataí" ...
+ $ tipo             : int  1 2 1 1 1 1 1 1 1 1 ...
+ $ numero_domicilios: int  40 504 130 16 117 60 25 28 8 13 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="filtrar-as-observações---filter" class="level2">
+<h2 class="anchored" data-anchor-id="filtrar-as-observações---filter">Filtrar as observações - <code>filter()</code></h2>
+<p>Para obter apenas os NUI do tipo favela, vamos aplicar um filtro nos dados.</p>
+<p>Operações de filtro geralmente demandam um operador lógico - fazemos um teste e obtemos apenas as observações que cumprem o teste lógico (ou seja, o resultado é VERDADEIRO).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://analisemacro.com.br/data-science/controles-de-fluxo-if-else-for-e-while-no-r/"><img src="https://analisemacro.com.br/wp-content/uploads/2022/03/lgl_r.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Figura 2 - Principais operadores lógicos no R. Fonte: Website Análise Macro</figcaption><p></p>
+</figure>
+</div>
+<p>Após consultar o dicionário de dados, verificamos que foi atribuído o valor 1 aos NUI do tipo favela. Portanto, nossa operação lógica é <code>tipo == 1</code>, como mostra o exemplo abaixo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>nuis3 <span class="ot">&lt;-</span> nuis2 <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tipo <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nuis3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   2595 obs. of  4 variables:
+ $ polo             : chr  "Porto Alegre" "Porto Alegre" "Porto Alegre" "Porto Alegre" ...
+ $ municipio        : chr  "Gravataí" "Gravataí" "Gravataí" "Gravataí" ...
+ $ tipo             : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ numero_domicilios: int  40 130 16 117 60 25 28 8 13 22 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="agrupar-e-resumir---group_by-e-summarize" class="level2">
+<h2 class="anchored" data-anchor-id="agrupar-e-resumir---group_by-e-summarize">Agrupar e resumir - <code>group_by()</code> e <code>summarize()</code></h2>
+<p>Partindo do objeto obtido na operação anterior, vamos aplicar uma etapa muito importante do nosso roteiro de análise de dados, o agrupamento e sumarização dos dados. Isso será feito usando duas funções geralmente aplicadas em conjunto, na sequência apresentada: o <code>group_by()</code> e o <code>summarize()</code>. Neste caso, estamos agrupando os dados pelos municípios, que passarão a ser nossa unidade básica de análise, e obtendo a soma de domicílios em favelas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>nuis4 <span class="ot">&lt;-</span> nuis3 <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(municipio) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">soma_domicilios =</span> <span class="fu">sum</span>(numero_domicilios))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(nuis4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [100 × 2] (S3: tbl_df/tbl/data.frame)
+ $ municipio      : chr [1:100] "Abreu e Lima" "Aiuaba" "Aliança" "Altaneira" ...
+ $ soma_domicilios: int [1:100] 3795 120 558 31 4793 422 151 2453 900 554 ...</code></pre>
+</div>
+</div>
+<p>Estamos quase chegando no resultado esperado, mas ainda faltam duas etapas importantes: primeiro, adicionar uma nova variável com a quantidade de domicílios ocupados em 2022, de acordo com o Censo Demográfico; e na sequência, filtrar apenas os 6 municípios polo da Pesquisa NUI.</p>
+</section>
+<section id="união---left_join-right_join-full_join-inner_join" class="level2">
+<h2 class="anchored" data-anchor-id="união---left_join-right_join-full_join-inner_join">União - <code>left_join()</code>, <code>right_join()</code>, <code>full_join()</code>, <code>inner_join()</code></h2>
+<p>Para adicionar uma coluna com a quantidade de domicílios ocupados, precisamos buscar esses dados em outra tabela. Após consultar esses dados no (Sidra IBGE)[], vamos definir uma nova tabela do tipo <code>data.frame</code> com esses dados, usando o código a seguir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>nome_municipio <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Aracaju"</span>, <span class="st">"Belo Horizonte"</span>, <span class="st">"Brasília"</span>, <span class="st">"Goiânia"</span>, <span class="st">"Juazeiro do Norte"</span>, <span class="st">"Marabá"</span>, <span class="st">"Porto Alegre"</span>, <span class="st">"Recife"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>domicilios_ocupados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">218513</span>, <span class="dv">889584</span>, <span class="dv">988191</span>, <span class="dv">549071</span>, <span class="dv">97385</span>, <span class="dv">86027</span>, <span class="dv">558252</span>, <span class="dv">547461</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>domicilios_2022 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(nome_municipio, domicilios_ocupados)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>domicilios_2022</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     nome_municipio domicilios_ocupados
+1           Aracaju              218513
+2    Belo Horizonte              889584
+3          Brasília              988191
+4           Goiânia              549071
+5 Juazeiro do Norte               97385
+6            Marabá               86027
+7      Porto Alegre              558252
+8            Recife              547461</code></pre>
+</div>
+</div>
+<p>Para fazer a união entre 2 tabelas, geralmente usamos uma operação de <code>join()</code>. Existem quatro tipos, exemplificados na tabela abaixo, e precisamos indicar qual tipo de <em>join</em> vamos usar. No nosso caso, o <code>inner_join()</code>, que retorna apenas as observações em que houver correspondência entre as duas tabelas, vai resolver as duas etapas especificadas acima.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mikoontz.github.io/data-carpentry-week/img/dplyr-joins.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figura 3 - Tipos de união</figcaption><p></p>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>nuis5 <span class="ot">&lt;-</span> nuis4 <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(domicilios_2022, </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"municipio"</span> <span class="ot">=</span> <span class="st">"nome_municipio"</span>))</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nuis5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  municipio         soma_domicilios domicilios_ocupados
+  &lt;chr&gt;                       &lt;int&gt;               &lt;dbl&gt;
+1 Belo Horizonte             102151              889584
+2 Brasília                     3199              988191
+3 Juazeiro do Norte            4401               97385
+4 Marabá                      20334               86027
+5 Porto Alegre                71646              558252
+6 Recife                     225856              547461</code></pre>
+</div>
+</div>
+<p>Com a tabela resultante do código acima, já temos todos os dados necessários para calcular a proporção de domicílios do tipo favela em cada município polo da Pesquisa NUI.</p>
+</section>
+<section id="criar-novas-variáveis---mutate" class="level2">
+<h2 class="anchored" data-anchor-id="criar-novas-variáveis---mutate">Criar novas variáveis - <code>mutate()</code></h2>
+<p>Já vimos como criar novas variáveis nesse roteiro, quando apresentamos os objetos e funções. Mas agora, vamos aprender uma nova forma de criar variáveis, um método padronizado conforme as sugestões do <code>tidyverse</code>, usando a função <code>mutate()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>nuis6 <span class="ot">&lt;-</span> nuis5 <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proporcao =</span> soma_domicilios<span class="sc">/</span>domicilios_ocupados,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">porcentagem =</span> <span class="fu">round</span>(proporcao, <span class="dv">3</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nuis6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  municipio         soma_domicilios domicilios_ocupados proporcao porcentagem
+  &lt;chr&gt;                       &lt;int&gt;               &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+1 Belo Horizonte             102151              889584   0.115          11.5
+2 Brasília                     3199              988191   0.00324         0.3
+3 Juazeiro do Norte            4401               97385   0.0452          4.5
+4 Marabá                      20334               86027   0.236          23.6
+5 Porto Alegre                71646              558252   0.128          12.8
+6 Recife                     225856              547461   0.413          41.3</code></pre>
+</div>
+</div>
+<p>Como podemos ver na tabela, Recife é o município com a maior proporção de domicílios do tipo favela (sobre o total de domicílios ocupados), que é de 41,3%.</p>
+</section>
+<section id="exportar-os-dados" class="level2">
+<h2 class="anchored" data-anchor-id="exportar-os-dados">Exportar os dados</h2>
+<p>Agora que chegamos no resultado final desejado, podemos exportar essa tabela no formato csv para anexá-la em nossa pesquisa. Isso será feito usando a função <code>write_csv2()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv2</span>(nuis6, <span class="st">"tabela_final.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="roteiro-final" class="level1">
+<h1>Roteiro final</h1>
+<p>Após construir o roteiro de análise de dados, podemos consolidar o conhecimento em um roteiro final único, seguindo a estrutura proposta pelo pacote <code>tidyverse</code>:</p>
+<ol type="1">
+<li>Abrir as biblioteca</li>
+<li>Importar os dados</li>
+<li>Limpar os dados</li>
+<li>Transformação/visualização/modelagem</li>
+<li>Exportar os dados</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ABRIR AS BIBLIOTECAS</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTAR OS DADOS</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>nuis <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"https://raw.githubusercontent.com/luisfelipebr/intro-r/main/dados/POLOS_NUIS.csv"</span>)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>nome_municipio <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Aracaju"</span>, <span class="st">"Belo Horizonte"</span>, <span class="st">"Brasília"</span>, <span class="st">"Goiânia"</span>, <span class="st">"Juazeiro do Norte"</span>, <span class="st">"Marabá"</span>, <span class="st">"Porto Alegre"</span>, <span class="st">"Recife"</span>)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>domicilios_ocupados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">218513</span>, <span class="dv">889584</span>, <span class="dv">988191</span>, <span class="dv">549071</span>, <span class="dv">97385</span>, <span class="dv">86027</span>, <span class="dv">558252</span>, <span class="dv">547461</span>)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>domicilios_2022 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(nome_municipio, domicilios_ocupados)</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>nomes_dos_nuis <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"id"</span>,</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"polo"</span>,</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"municipio"</span>,</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"agrupamento_de_municipios"</span>,</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nome"</span>,</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nome_fonte"</span>,</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"numero_domicilios"</span>,</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"numero_fonte"</span>,</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"numero_data"</span>,</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tipo"</span>,</span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tipo_especificacao"</span>,</span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tipo_proporcao"</span>,</span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tempo_estabelecimento"</span>,</span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dinamica_imobiliaria"</span>,</span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"contiguidade_urbana"</span>,</span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"zeis"</span>,</span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">"areas_protegidas"</span>,</span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">"areas_protegidas_tipo"</span>,</span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">"app"</span>,</span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">"app_tipo"</span>,</span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">"app_fonte"</span>,</span>
+<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"situacao_risco"</span>,</span>
+<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"situacao_risco_especificacao"</span>,</span>
+<span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"suscetibilidade_risco"</span>,</span>
+<span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"suscetibilidade_risco_grau"</span>,</span>
+<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tracado"</span>,</span>
+<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tracao_especificacao"</span>,</span>
+<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ocupacao_lotes"</span>,</span>
+<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ocupacao_lotes_especificacao"</span>,</span>
+<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">"condicao_construcoes"</span>,</span>
+<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">"condicao_construcoes_especificacao"</span>,</span>
+<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">"urbanizacao_infraestrutura"</span>,</span>
+<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a>  <span class="st">"obs"</span>,</span>
+<span id="cb50-45"><a href="#cb50-45" aria-hidden="true" tabindex="-1"></a>  <span class="st">"estimativa_domicilios"</span></span>
+<span id="cb50-46"><a href="#cb50-46" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-47"><a href="#cb50-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-48"><a href="#cb50-48" aria-hidden="true" tabindex="-1"></a><span class="co"># LIMPEZA DOS DADOS</span></span>
+<span id="cb50-49"><a href="#cb50-49" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(nuis) <span class="ot">&lt;-</span> nomes_dos_nuis <span class="co">#troquei o nome das variaveis</span></span>
+<span id="cb50-50"><a href="#cb50-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-51"><a href="#cb50-51" aria-hidden="true" tabindex="-1"></a><span class="co"># ANALISE DE DADOS</span></span>
+<span id="cb50-52"><a href="#cb50-52" aria-hidden="true" tabindex="-1"></a><span class="co"># qual município polo possui a maior proporção </span></span>
+<span id="cb50-53"><a href="#cb50-53" aria-hidden="true" tabindex="-1"></a><span class="co"># de domicílios ocupados em favelas?</span></span>
+<span id="cb50-54"><a href="#cb50-54" aria-hidden="true" tabindex="-1"></a>tabela_final <span class="ot">&lt;-</span> nuis <span class="sc">%&gt;%</span></span>
+<span id="cb50-55"><a href="#cb50-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(polo, municipio, tipo, numero_domicilios) <span class="sc">%&gt;%</span> <span class="co"># selecionar as variaveis relevantes</span></span>
+<span id="cb50-56"><a href="#cb50-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tipo <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># Filtrar apenas os NUIs do tipo favela</span></span>
+<span id="cb50-57"><a href="#cb50-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(municipio) <span class="sc">%&gt;%</span> <span class="co"># Agrupando por municipios</span></span>
+<span id="cb50-58"><a href="#cb50-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">soma_domicilios =</span> <span class="fu">sum</span>(numero_domicilios)) <span class="sc">%&gt;%</span> <span class="co"># Resumindo a soma de domicilios em favelas</span></span>
+<span id="cb50-59"><a href="#cb50-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(domicilios_2022, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"municipio"</span> <span class="ot">=</span> <span class="st">"nome_municipio"</span>)) <span class="sc">%&gt;%</span> <span class="co">#Join com a quantidade de domicilios ocupados</span></span>
+<span id="cb50-60"><a href="#cb50-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proporcao =</span> soma_domicilios<span class="sc">/</span>domicilios_ocupados, <span class="co"># criando nova variavel com a proporcao</span></span>
+<span id="cb50-61"><a href="#cb50-61" aria-hidden="true" tabindex="-1"></a>         <span class="at">porcentagem =</span> <span class="fu">round</span>(proporcao, <span class="dv">3</span>)<span class="sc">*</span><span class="dv">100</span>) <span class="co"># arredondando a proporcao e multiplicando por 100</span></span>
+<span id="cb50-62"><a href="#cb50-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-63"><a href="#cb50-63" aria-hidden="true" tabindex="-1"></a><span class="co"># EXPORTANDO OS DADOS</span></span>
+<span id="cb50-64"><a href="#cb50-64" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv2</span>(tabela_final, <span class="st">"tabela_final.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="próximos-passos" class="level1">
+<h1>Próximos passos</h1>
+<p>Sugestões de livros para aprender análise de dados com R em mais de 1 hora:</p>
+<ul>
+<li><p><a href="https://r4ds.hadley.nz/">R for Data Science</a></p></li>
+<li><p><a href="https://livro.curso-r.com/index.html">Ciência de dados em R</a></p></li>
+</ul>
+<p>Você também você pode explorar a documentação de outras bibliotecas:</p>
+<p><code>library(readxl)</code> para abrir dados excel (.xls, .xlsx).</p>
+<p><code>library(arrow)</code> para abrir dados do tipo parquet (.parquet).</p>
+<p><code>library(ggplot2)</code> para produzir visualizações de dados (gráficos).</p>
+<p><code>library(survey)</code> para analisar pesquisas amostrais, como o Censo Demográfico (microdados da amostra) e a PNAD contínua.</p>
+<p><code>library(sf)</code>, se deseja abrir e processar dados geoespaciais.</p>
+<p><code>library(geobr)</code> para fazer o download de bases de dados geoespaciais oficiais do Brasil.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
